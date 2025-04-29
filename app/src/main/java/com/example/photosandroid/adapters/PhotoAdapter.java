@@ -20,8 +20,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
         void onPhotoLongClick(Photo photo);
     }
 
-    private List<Photo> photos;
-    private OnPhotoClickListener listener;
+    private final List<Photo> photos;
+    private final OnPhotoClickListener listener;
 
     public PhotoAdapter(List<Photo> photos, OnPhotoClickListener listener) {
         this.photos = photos;
