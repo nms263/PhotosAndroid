@@ -8,6 +8,9 @@ public class Album {
     private String name;
     private List<Photo> photos;
 
+    private int index;
+    private List<Album> albums;
+
     public Album(String name) {
         this.name = name;
         this.photos = new ArrayList<>();
