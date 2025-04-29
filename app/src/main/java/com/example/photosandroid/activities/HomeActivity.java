@@ -44,13 +44,11 @@ public class HomeActivity extends AppCompatActivity {
         albumAdapter = new AlbumAdapter(albums, new AlbumAdapter.OnAlbumClickListener() {
             @Override
             public void onAlbumClick(Album album) {
-                // TODO: Open AlbumActivity to view photos inside album
                 Toast.makeText(HomeActivity.this, "Opening album: " + album.getName(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onAlbumLongClick(Album album) {
-                // TODO: Show options to rename or delete album
                 Toast.makeText(HomeActivity.this, "Long pressed album: " + album.getName(), Toast.LENGTH_SHORT).show();
             }
         });
