@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">PhotosAndroid</string>
+    <string name="albums_title">Albums</string>
+
+    <string name="add_album">Add Album</string>
+    <string name="rename_album">Rename Album</string>
+    <string name="delete_album">Delete Album</string>
+    <string name="album_name_hint">Enter album name</string>
+
+    <!-- Photo Screen -->
+    <string name="add_photo">Add Photo</string>
+    <string name="delete_photo">Delete Photo</string>
+    <string name="move_photo">Move Photo</string>
+    <string name="photo_tags">Tags</string>
+    <string name="slideshow">Start Slideshow</string>
+
+    <!-- Tagging -->
+    <string name="add_tag">Add Tag</string>
+    <string name="delete_tag">Delete Tag</string>
+    <string name="tag_person">Person</string>
+    <string name="tag_location">Location</string>
+
+    <!-- Search -->
+    <string name="search_photos">Search Photos</string>
+    <string name="search_hint">Enter person or location</string>
+
+    <!-- Dialogs / Buttons -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+</resources>
