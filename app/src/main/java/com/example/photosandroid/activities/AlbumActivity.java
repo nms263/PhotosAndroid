@@ -54,8 +54,11 @@ public class AlbumActivity extends AppCompatActivity {
         photoAdapter = new PhotoAdapter(currentAlbum.getPhotos(), new PhotoAdapter.OnPhotoClickListener() {
             @Override
             public void onPhotoClick(Photo photo) {
-                Toast.makeText(AlbumActivity.this, "Photo clicked", Toast.LENGTH_SHORT).show();
-            }
+                int photoIndex = currentAlbum.getPhotos().indexOf(photo);
+                Intent intent = new Intent(AlbumActivity.this, SlideshowActivity.class);
+                intent.putExtra("album_index", index);
+                intent.putExtra("photo_index", photoIndex);
+                startActivity(intent);            }
 
             @Override
             public void onPhotoLongClick(Photo photo) {
