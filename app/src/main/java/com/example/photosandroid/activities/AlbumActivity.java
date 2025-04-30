@@ -59,7 +59,21 @@ public class AlbumActivity extends AppCompatActivity {
 
             @Override
             public void onPhotoLongClick(Photo photo) {
-                Toast.makeText(AlbumActivity.this, "Photo long clicked", Toast.LENGTH_SHORT).show();
+                new androidx.appcompat.app.AlertDialog.Builder(AlbumActivity.this)
+                        .setTitle("Delete Photo")
+                        .setMessage("Are you sure you want to delete this photo?")
+                        .setPositiveButton("Delete", (dialog, which) -> {
+                            int pos = currentAlbum.getPhotos().indexOf(photo);
+                            if (pos != -1) {
+                                currentAlbum.removePhoto(photo);
+                                albums.set(index, currentAlbum);
+                                StorageUtil.saveAlbums(AlbumActivity.this, albums);
+                                photoAdapter.notifyItemRemoved(pos);
+                                Toast.makeText(AlbumActivity.this, "Photo deleted", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .show();
             }
         });
 
