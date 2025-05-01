@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 1. App bar / toolbar on top -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_search"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:title="Search"
+        android:titleTextColor="@android:color/white"
+        app:navigationIcon="@android:drawable/ic_menu_search"
+        />
+
+    <!-- 2. Search controls immediately below -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/search_controls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- first tag -->
+            <Spinner
+                android:id="@+id/spinner_tag_type_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/tag_types"/>
+
+            <AutoCompleteTextView
+                android:id="@+id/auto_value_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Value 1"
+                android:layout_marginTop="8dp"/>
+
+            <!-- second tag -->
+            <Spinner
+                android:id="@+id/spinner_tag_type_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/tag_types"
+                android:layout_marginTop="16dp"/>
+
+            <AutoCompleteTextView
+                android:id="@+id/auto_value_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Value 2"
+                android:layout_marginTop="8dp"/>
+
+            <RadioGroup
+                android:id="@+id/radio_and_or"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
+                <RadioButton
+                    android:id="@+id/radio_and"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="AND"/>
+
+                <RadioButton
+                    android:id="@+id/radio_or"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="OR"/>
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Search"
+                android:layout_marginTop="12dp"/>
+
+            <!-- Results grid takes the rest of the space -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_results"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

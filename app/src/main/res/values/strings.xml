@@ -19,6 +19,10 @@
     <string name="delete_tag">Delete Tag</string>
     <string name="tag_person">Person</string>
     <string name="tag_location">Location</string>
+    <string-array name="tag_types">
+        <item>person</item>
+        <item>location</item>
+    </string-array>
 
     <!-- Search -->
     <string name="search_photos">Search Photos</string>
