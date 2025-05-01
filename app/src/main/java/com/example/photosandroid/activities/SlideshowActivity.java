@@ -20,6 +20,7 @@ import com.example.photosandroid.models.Album;
 import com.example.photosandroid.models.Photo;
 import com.example.photosandroid.utils.StorageUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ public class SlideshowActivity extends AppCompatActivity {
 
     private ImageView slideshowImage;
     private TextView tagDisplay;
-    private Button previousButton, nextButton, addTagButton, deleteTagButton;
+    private Button previousButton, nextButton, addTagButton, deleteTagButton, movePhotoButton;
     private List<Photo> photoList;
     private List<Album> albums;
     private int currentIndex;
@@ -44,6 +45,7 @@ public class SlideshowActivity extends AppCompatActivity {
         nextButton = findViewById(R.id.next_button);
         addTagButton = findViewById(R.id.add_tag_button);
         deleteTagButton = findViewById(R.id.delete_tag_button);
+        movePhotoButton = findViewById(R.id.move_photo_button);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -78,14 +80,13 @@ public class SlideshowActivity extends AppCompatActivity {
 
         addTagButton.setOnClickListener(v -> showAddTagDialog());
         deleteTagButton.setOnClickListener(v -> showDeleteTagDialog());
+        movePhotoButton.setOnClickListener(v -> showMovePhotoDialog());
     }
 
     private void showPhoto(int index) {
         Photo photo = photoList.get(index);
         Uri uri = Uri.parse(photo.getFilePath());
-
         Log.d("SlideshowActivity", "Displaying URI: " + uri.toString());
-
         slideshowImage.setImageURI(uri);
         updateTagDisplay(photo);
     }
@@ -153,6 +154,62 @@ public class SlideshowActivity extends AppCompatActivity {
                     albums.set(albumIndex, albums.get(albumIndex));
                     StorageUtil.saveAlbums(this, albums);
                     updateTagDisplay(currentPhoto);
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void showMovePhotoDialog() {
+        Photo photoToMove = photoList.get(currentIndex);
+        List<String> albumNames = new ArrayList<>();
+
+        for (int i = 0; i < albums.size(); i++) {
+            if (i != albumIndex) {
+                albumNames.add(albums.get(i).getName());
+            }
+        }
+
+        if (albumNames.isEmpty()) {
+            new AlertDialog.Builder(this)
+                    .setTitle("No other albums")
+                    .setMessage("There are no other albums to move this photo to.")
+                    .setPositiveButton("OK", null)
+                    .show();
+            return;
+        }
+
+        String[] namesArray = albumNames.toArray(new String[0]);
+
+        new AlertDialog.Builder(this)
+                .setTitle("Move photo to:")
+                .setItems(namesArray, (dialog, which) -> {
+                    int targetIndex = -1;
+                    for (int i = 0; i < albums.size(); i++) {
+                        if (i != albumIndex && albums.get(i).getName().equals(namesArray[which])) {
+                            targetIndex = i;
+                            break;
+                        }
+                    }
+
+                    if (targetIndex != -1) {
+                        albums.get(targetIndex).addPhoto(photoToMove);
+                        photoList.remove(currentIndex);
+                        albums.set(albumIndex, albums.get(albumIndex));
+                        albums.set(targetIndex, albums.get(targetIndex));
+                        StorageUtil.saveAlbums(this, albums);
+
+                        if (photoList.isEmpty()) {
+                            finish();
+                        } else {
+                            currentIndex = Math.max(0, currentIndex - 1);
+                            showPhoto(currentIndex);
+                        }
+
+                        new AlertDialog.Builder(this)
+                                .setMessage("Photo moved successfully.")
+                                .setPositiveButton("OK", null)
+                                .show();
+                    }
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
