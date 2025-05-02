@@ -50,6 +50,15 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
         });
     }
 
+    /**
+     * Replace the adapter’s internal list of photos and refresh.
+     */
+    public void updatePhotos(List<Photo> newPhotos) {
+        photos.clear();
+        photos.addAll(newPhotos);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return photos.size();

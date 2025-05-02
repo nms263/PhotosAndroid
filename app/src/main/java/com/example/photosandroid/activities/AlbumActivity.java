@@ -139,4 +139,24 @@ public class AlbumActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // 1) Reload from persistent storage
+        albums = StorageUtil.loadAlbums(this);
+
+        // 2) Grab the current album again
+        if (index >= 0 && index < albums.size()) {
+            currentAlbum = albums.get(index);
+
+            // 3) Update adapter’s list
+            photoAdapter.updatePhotos(currentAlbum.getPhotos());
+        } else {
+            // (optional) handle case where album was deleted
+            finish();
+        }
+    }
+
+
 }
