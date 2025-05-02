@@ -41,6 +41,9 @@ public class AlbumActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         toolbar.setNavigationOnClickListener(v -> finish());
 
         photoList = findViewById(R.id.photo_list);
@@ -134,6 +137,9 @@ public class AlbumActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_search) {
             startActivity(new Intent(this, SearchActivity.class));
+            return true;
+        } else if (item.getItemId() == android.R.id.home) {
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
