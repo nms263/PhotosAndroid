@@ -3,8 +3,6 @@ package com.example.photosandroid.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -41,6 +39,7 @@ public class AlbumActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(v -> finish());
 
         photoList = findViewById(R.id.photo_list);
@@ -65,7 +64,8 @@ public class AlbumActivity extends AppCompatActivity {
                 Intent intent = new Intent(AlbumActivity.this, SlideshowActivity.class);
                 intent.putExtra("album_index", index);
                 intent.putExtra("photo_index", photoIndex);
-                startActivity(intent);            }
+                startActivity(intent);
+            }
 
             @Override
             public void onPhotoLongClick(Photo photo) {
@@ -123,40 +123,4 @@ public class AlbumActivity extends AppCompatActivity {
             }
         }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.album_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_search) {
-            startActivity(new Intent(this, SearchActivity.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // 1) Reload from persistent storage
-        albums = StorageUtil.loadAlbums(this);
-
-        // 2) Grab the current album again
-        if (index >= 0 && index < albums.size()) {
-            currentAlbum = albums.get(index);
-
-            // 3) Update adapter’s list
-            photoAdapter.updatePhotos(currentAlbum.getPhotos());
-        } else {
-            // (optional) handle case where album was deleted
-            finish();
-        }
-    }
-
-
 }
