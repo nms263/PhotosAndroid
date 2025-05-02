@@ -78,7 +78,7 @@ public class AlbumActivity extends AppCompatActivity {
                                 currentAlbum.removePhoto(photo);
                                 albums.set(index, currentAlbum);
                                 StorageUtil.saveAlbums(AlbumActivity.this, albums);
-                                photoAdapter.notifyItemRemoved(pos);
+                                photoAdapter.updatePhotos(currentAlbum.getPhotos());
                                 Toast.makeText(AlbumActivity.this, "Photo deleted", Toast.LENGTH_SHORT).show();
                             }
                         })

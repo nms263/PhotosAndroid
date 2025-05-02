@@ -27,6 +27,17 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:listitem="@layout/item_album" />
 
+    <TextView
+        android:id="@+id/long_press_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="40dp"
+        android:text="Long‑press an album to rename or delete it"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_album_button"
         android:layout_width="wrap_content"
